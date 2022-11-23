@@ -1,0 +1,468 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Dashboard</title>
+  <link rel="icon" href="{% static 'dist/img/pec-logo-pic.png' %}" type="png">
+
+  <!-- Google Font: Ubuntu -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,500;1,700&display=swap"
+    rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="{% static 'plugins/jqvmap/jqvmap.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
+  <!-- summernote -->
+  <link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.min.css' %}">
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+</head>
+
+<body class=" sidebar-collapse">
+  <!-- Site wrapper -->
+  <div class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-black navbar-dark">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="{% url 'home' %}" class="nav-link">Home</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a href="{% url 'logout_request' %}" type="button" class="btn btn-danger">Logout</a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">Student Dashboard</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a id="breadcrumb-home" href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Student Dashboard</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+
+            <div class="col-lg-3 col-6">
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  <h3><div id="bonafides_pending"></div></h3>
+                  <p>Requests Raised</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-user-clock"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-6">
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3><div id="bonafides_approved"></div></h3>
+                  <p>Bonafides Issued</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-user-check"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col">
+              <!-- small box -->
+              <div class="small-box bg-secondary">
+                <div class="inner">
+                  <div class="row">
+                    <div class="col-5">
+                      Logged in as,<br>
+                      Name:&nbsp&nbsp<span id="name"></span><br>
+                      Roll No:&nbsp&nbsp<span id="rollno"></span><br>
+                      Department:&nbsp&nbsp<span id="department"></span><br>
+                    </div>
+                    <div class="col-6">
+                      <br>
+                      Section:&nbsp&nbsp<span id="section"></span><br>
+                      Email:&nbsp&nbsp<span id="email"></span><br>
+                      College:&nbsp&nbsp<span id="college"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                
+              </div>
+            </div>
+
+          </div>
+          <div class="col-sm-12" id="RaisedTable" >
+            <h4 class="text-center alert alert-dark">BONAFIDE REQUESTS RAISED</h4>
+            <div class="wrapper-editor">
+              <div class="row">
+                <div class="col-sm-9"></div>
+                <div class="col-sm-2">
+                  <input type="button" id="NewRequest" value="Raise a New Bonafide Request" class="btn btn-success" onclick="appear()">
+                </div>
+              </div>
+              <!-- <table id="example" class="hover display nowrap" style="width:100%"> -->
+                <span id="bon_table"></span>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+        <div class="col-sm-12" id="RequestForm" style="display: none;">
+          <h4 class="text-center alert alert-secondary">BONAFIDE FORM</h4>
+          <div class="card card-dark">
+            <form id="request_form" method="post">
+              {% csrf_token %}
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div id="YearOfStudy" class="form-group">
+                      <div class="form-group">
+                        <label for="year">Year</label>
+                        <select id="year" name="year" class="form-control custom-select" required>
+                          <option value="">Select Year</option>
+                          <option value="1">1st Year</option>
+                          <option value="2">2nd Year</option>
+                          <option value="3">3rd Year</option>
+                          <option value="4">4th Year</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="StuBatch">Batch</label>
+                      <div class="input-group mb-3">
+                        <input type="text" name="batch" class="form-control" placeholder="20XX-20XX" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="StuQuota">Educational Quota</label>
+                      <select id="StuQuota" name="quota" class="form-control custom-select" required>
+                        <option value="">Select Option</option>
+                        <option value="Government Quota">Government Quota</option>
+                        <option value="Management Quota">Management Quota</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="FirstGraduate">First Graduate</label>
+                      <select id="FirstGraduate" name="first_graduate" class="form-control custom-select" required>
+                        <option value="">Select Option</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="StuAccom">Student's Accommodation</label>
+                      <select id="StuAccom" name="accommodation" class="form-control custom-select" required>
+                        <option value="">Select Option</option>
+                        <option value="Hosteller">Hosteller</option>
+                        <option value="Day Scholar">Day Scholar</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group" onclick="OtherReasons()">
+                      <label for="StuPurpose">Purpose</label>
+                      <select id="StuPurpose" name="reason_for_request_options" class="form-control custom-select" required>
+                        <option value="">Select Vaild Reason</option>
+                        <option value="Applying Educational Loan">Educational Loan</option>
+                        <option value="Higher Education">Higher Education</option>
+                        <option value="Applying Passport">Passport</option>
+                        <option value="Income Tax">Income Tax</option>
+                        <option value="Other Reason" >Others</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div id="OtherReason"  class="col-md-4" style="display: none;">
+                    <div class="form-group">
+                      <label for="StuBatch">Other Reason</label>
+                      <div class="input-group mb-3">
+                        <input type="text" name="reason_for_request_other" class="form-control" placeholder="Please Enter Valid Reason" >
+                      </div>
+                    </div>
+                  </div>
+                  <input type="text" id="hidden_reason" name="reason_for_request" value="" hidden>
+                </div>
+              </div>
+            </form>
+          </div>
+            <div class="row">
+              <div class="col-12">
+                <a type="submit" onclick='document.getElementById("request_form").reset()' class="btn btn-secondary">Reset</a>
+                <button type="submit" form="request_form" id="request_submit"  class="btn btn-success float-right">Request Bonafide</button>
+              </div>
+            </div>
+          
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- jQuery -->
+  <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="{% static 'plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+    $.widget.bridge('uibutton', $.ui.button)
+  </script>
+  <!-- Bootstrap 4 -->
+  <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- ChartJS -->
+  <script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
+  <!-- Sparkline -->
+  <script src="{% static 'plugins/sparklines/sparkline.js' %}"></script>
+  <!-- JQVMap -->
+  <script src="{% static 'plugins/jqvmap/jquery.vmap.min.js' %}"></script>
+  <script src="{% static 'plugins/jqvmap/maps/jquery.vmap.usa.js' %}"></script>
+  <!-- jQuery Knob Chart -->
+  <script src="{% static 'plugins/jquery-knob/jquery.knob.min.js' %}"></script>
+  <!-- daterangepicker -->
+  <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+  <script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+  <!-- Tempusdominus Bootstrap 4 -->
+  <script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+  <!-- Summernote -->
+  <script src="{% static 'plugins/summernote/summernote-bs4.min.js' %}"></script>
+  <!-- overlayScrollbars -->
+  <script src="{% static 'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+  <!-- AdminLTE App -->
+  <script src="{% static 'dist/js/adminlte.js' %}"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="{% static 'dist/js/demo.js' %}"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script src="{% static 'dist/js/pages/dashboard.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+
+
+  <script>
+
+    $(document).ready(function () {
+      data_getter();
+  });
+
+function data_getter() {
+    
+    $.ajax({
+        type        : 'GET', // define the type of HTTP verb we want to use (POST for our form)
+        url         : "{% url 'student_dashboard_data' %}", // the url where we want to POST
+        
+        dataType    : 'json', // what type of data do we expect back from the server
+        success     : successFunction
+    });
+}
+
+function successFunction(res_obj) {
+   
+    if (res_obj.status === 'success') {
+     document.getElementById("name").innerText=res_obj.data[2];
+     document.getElementById("rollno").innerText=res_obj.data[1];
+     document.getElementById("department").innerText=res_obj.data[3];
+     document.getElementById("section").innerText=res_obj.data[4];
+     document.getElementById("email").innerText=res_obj.data[5];
+     //document.getElementById("bonafides_applied").innerText=res_obj.data[6];
+     document.getElementById("bonafides_approved").innerText=res_obj.data[7];
+     //document.getElementById("bonafides_rejected").innerText=res_obj.data[9];
+     document.getElementById("bonafides_pending").innerText=res_obj.data[8];
+     document.getElementById("college").innerText=res_obj.data[10];
+   
+     const bonafides= res_obj.data[0];//bonafides data store
+     
+        var html_text=`
+        <table id="table_id" class="hover display nowrap" style="width:100%">
+          <thead>
+            <tr>
+              <th>Roll Number</th>
+              <th>Year</th>
+              <th>Reason For Request</th>
+              <th>Status</th>
+              <th>Date Of Request</th>
+              <th>Date Handled</th>
+            </tr>
+          </thead>
+          <tbody>
+        `;
+       
+      
+         for(var i=0;i<bonafides.length;i++){
+          html_text+="<tr>";
+
+          for(var j=0;j<bonafides[i].length;j++){
+            html_text+="<td>";
+             html_text+=bonafides[i][j]; 
+            html_text+="</td>" ;
+            
+          }  
+          html_text+="</tr>";
+       
+         } 
+         html_text+=`</tbody>
+         <tfoot>
+           <tr>
+             <th>Roll Number</th>
+             <th>Year</th>
+             <th>Reason For Request</th>
+             <th>Status</th>
+             <th>Date Of Request</th>
+             <th>Date Handled</th>
+           </tr>
+           </tfoot></table>`
+         $("#bon_table").append(html_text);
+         data_table();
+    }
+    else{
+     $("#bon_table").append(res_obj.msg);
+    }
+}
+
+function data_table() {
+  $('#table_id').DataTable({
+    //responsive scroll
+    "scrollX": true,
+    //disable pagination
+    "bPaginate": false,
+    //disable search
+    "bFilter": false,
+  });
+}
+
+    function appear() {
+      document.getElementById("NewRequest").disabled = true;
+      document.getElementById("RequestForm").style.display = "block";
+      document.getElementById("NewRequest").value = "Scroll Down";
+      document.getElementById("RaisedTable").style.display = "none";
+    }
+    
+    function OtherReasons(){
+      var reason = $("#StuPurpose").val();
+      if (reason == "Other Reason") {
+        document.getElementById("OtherReason").style.display = "block";
+        document.getElementById("StuPurpose").disabled = true;
+      } 
+    }
+
+    const request_form = document.getElementById('request_form');
+    request_form.addEventListener("submit", checker);
+   
+    function checker(e){
+      e.preventDefault();
+      if (request_form.reason_for_request_options.value == 'Other Reason' && request_form.reason_for_request_other.value == '') {
+        alert('You have to enter a valid reason');
+      }
+      else if(request_form.reason_for_request_options.value == 'Other Reason') {
+        var str = request_form.reason_for_request_other.value;
+        if (!str.replace(/\s/g, '').length) {
+          alert('reason contains only whitespace');
+        }
+        else {
+          $('#hidden_reason').val(request_form.reason_for_request_other.value);
+          confirmer(e)
+        }
+      }
+      else {
+        $('#hidden_reason').val(request_form.reason_for_request_options.value);
+        confirmer(e)
+      }
+    }
+    
+    function confirmer(e) {
+      e.preventDefault();
+      if (confirm('Do you want to submit the request?')) {
+          submitHandler(e)
+      }
+   }
+
+
+    function submitHandler(e) {
+      e.preventDefault();
+      $.ajax({
+          type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+          url         : "{% url 'request_bonafide_validate' %}", // the url where we want to POST
+          data        : $('#request_form').serialize(), // our form data
+          dataType    : 'json', // what type of data do we expect back from the server
+          success     : successfunction
+      });
+  }
+
+  function successfunction(res_obj) {
+    
+      if (res_obj.status === 'success') {
+        alert(res_obj.msg);
+        window.location ="{% url 'student_dashboard' %}";
+        form.reset();
+      }
+      else{
+        alert(res_obj.msg);
+      }
+  }  
+
+  </script>
+
+</body>
+
+</html>

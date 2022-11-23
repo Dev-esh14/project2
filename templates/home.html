@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<title>PEC | BONAFIDE GENERATOR</title>
+<link rel="icon" href="{% static 'dist/img/pec-logo-pic.png' %}" type="png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+<style>
+body, html {
+  height: 100%;
+  font-family: "Inconsolata", sans-serif;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.bg1 {
+  /* The image used */
+  background-image: url("{% static 'dist/img/pec-banner.jpg' %}");
+
+  /* Full height */
+  height: 80%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 95% 95%;
+}
+.menu {
+  display: none;
+}
+</style>
+<body>
+  <div class="w3-container" id="about">
+  <div class="w3-content" style="max-width:700px">
+    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">BONAFIDE GENERATOR WEBPAGE</span></h5>
+  </div>
+  </div>
+  <div class="bg1"></div>
+
+<!-- Links (sit on top) -->
+<div class="w3-top">
+  <div class="w3-row w3-padding w3-black">
+    <div class="w3-col s3">
+      <a href="https://panimalar.ac.in/" class="w3-button w3-block w3-black">HOME</a>
+    </div>
+    <div class="w3-col s3">
+      <a href="{% url 'student_login' %}" class="w3-button w3-block w3-black">STUDENT LOGIN</a>
+    </div>
+    <div class="w3-col s3">
+      <a href="{% url 'staff_login' %}" class="w3-button w3-block w3-black">STAFF LOGIN</a>
+    </div>
+    <div class="w3-col s3">
+      <a href="#where" class="w3-button w3-block w3-black">CONTACT US</a>
+    </div>
+  </div>
+</div>
+  
+
+<!-- Add a background color and large text to the whole page -->
+<div class="w3-sand w3-grayscale w3-large">
+</div>
+
+</body>
+</html>

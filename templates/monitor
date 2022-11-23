@@ -1,0 +1,88 @@
+completed:
+student_login 
+staff_login
+register_student
+register_staff
+edit_student
+edit_staff
+delete_student
+delete_staff
+view_students
+view_staffs
+request_bonafide
+student_dashboard
+staff_dashboard
+
+yet to do:
+remove unnecessary views
+formalise html pages
+design css
+admin page
+
+doubts:
+admin controls - whether for each department or general
+register,edit,delete restriction to respective departments
+
+
+
+?????????????????????????????????????????/
+index.html
+
+
+<!DOCTYPE html>
+<html>
+<style>
+table, td, th {
+  border: 1px solid black;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+body {
+  font-family: "Trirong", serif;
+}
+</style>
+<body>
+  <img src="E:\projects\django_projects\bongen\student_app\top_full.png">
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  This is to certify that {{student_name}} is a bonafide student of our college studying in {{year_study}}  B.E - {{dept}} during the academic year 2019-2023.
+  <br />
+  <br />
+
+  <table>
+  <tr>
+    <th>S.NO</th>
+    <th>DESCRIPTION</th>
+    <th>AMOUNT (in ₹) (per year) <th>
+    <th> Duration </th>
+    <th> TOTAL </th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>tution fees</td>
+    <td>75000</td>
+    <td>4 years</td>
+    <td>300000</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>transportation</td>
+    <td>50000</td>
+    <td>4 years</td>
+    <td>200000</td>
+  </tr>
+  <tr>
+    <td> grand total </td>
+    <td> </td>
+    <td> 125000 </td>
+    <td> </td>
+
+    <td> 500000 </td>
+</table>
+</body>
+</html>

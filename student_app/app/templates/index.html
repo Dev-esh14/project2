@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<style>
+table, td, th {
+  border: 1px solid black;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+body {
+  font-family: "Trirong", serif;
+}
+</style>
+<body>
+  <img src="E:\projects\django_projects\bongen\student_app\top_full.png">
+  <br />
+  <br />
+  <br />
+  <!--  TODO (create variables):
+        variable {{degree}} refers to B.E/M.E ...
+        variable {{duration}} refers to number 4 (in YEARS) ...
+  -->
+  <br />
+  <div align ="right">
+    {{date_handled}}
+  </div>
+  <br />
+  <br />
+  <div align ="center">
+    <p style="font-size: larger;"><b><h1>
+      <u>
+      {% if loan %}
+        BONAFIDE AND EXPENDITURE CERTIFICATE
+      {% else %}
+        BONAFIDE CERTIFICATE
+      {% endif %}
+    </u>
+    <br />
+    {{quota}} - {{accommodation}}
+  </h1></b></p>
+  </div>
+
+  <br /><h1>
+  <p style="font-size: large;">   This is to certify that <b>{{student_name}} {{student_rollno}} </b> is a bonafide student of our college studying in <b>{{student_year}} Year {{degree}} - {{student_dept}}</b> during the academic year <b>{{batch}}</b>. </p>
+  
+  {% if loan %}
+  <p>The expected expenditure for the course is as follows:-</p>
+</h1>
+  <br />
+  <br />
+
+  <table>
+  <tr>
+    <th style="text-align: center;"> S.No </th>
+      <th style="text-align: center;"> Description </th>
+      <th style="text-align: center;"> Amount (in ₹) (per year)
+      <th style="text-align: center;"> Duration </th>
+      <th style="text-align: center;"> Total (in ₹) </th>
+  </tr>
+  <tr>
+    <td style="text-align: center;">1</td>
+    <td style="text-align: center;">TUTION FEES</td>
+    <!-- Per Year-->
+    <td style="text-align: center;">{{tuitionFees}}</td>
+    <td style="text-align: center;">{{duration}} YEARS</td>
+    <!-- Total-->
+    <td style="text-align: center;">{{tuitionFees * duration}}</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">2</td>
+    <td style="text-align: center;">{{optionalFeesDescription}}</td>
+    <!-- Per Year-->
+    <td style="text-align: center;">{{optionalFees}}</td>
+    <td style="text-align: center;">{{duration}} YEARS</td>
+    <!-- Total-->
+    <td style="text-align: center;">{{optionalFees * duration}}</td>
+  </tr>
+  <tr>
+    <td colspan="2" style="text-align: center;"> GRAND TOTAL </td>
+    <!-- Per Year-->
+    {% set totalFees = tuitionFees + optionalFees %}
+    <td style="text-align: center;"> {{totalFees}} </td>
+    <td> </td>
+
+    <!-- Total-->
+    <td style="text-align: center;"> {{totalFees * duration}} </td>
+  </tr>
+</table>
+{% endif %}
+<p style="font-size: large;">This Certificate is issued for the purpose of {{reason_for_request}}.</p>
+</body>
+</html>
